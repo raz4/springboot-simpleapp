@@ -1,0 +1,22 @@
+version: '3'
+
+services: 
+  docker-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=springboot_db
+      - MYSQL_PASSWORD=root
+
+  springboot-simpleapp:
+    image: raz4/springboot-simpleapp:0.0.1-SNAPSHOT
+    depends_on:
+      - docker-mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=docker-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=springboot_db
+      - DATABASE_PORT=3306
